@@ -4,9 +4,5 @@ export default defineEventHandler(async event => {
   const session = await useServerSession(event)
   const github = session.data.github
 
-  if (!github?.username || !github.accessToken) {
-    return null
-  }
-
-  return { username: github.username }
+  return github ? { username: github.username } : null
 })
