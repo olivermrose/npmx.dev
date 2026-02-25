@@ -6,7 +6,7 @@ export default defineEventHandler(async event => {
   const session = await useServerSession(event)
   const github = session.data.github
 
-  if (!github?.accessToken) {
+  if (!github) {
     return { starred: false, connected: false }
   }
 
@@ -29,7 +29,6 @@ export default defineEventHandler(async event => {
         'Authorization': `Bearer ${github.accessToken}`,
         'Accept': 'application/vnd.github+json',
         'User-Agent': 'npmx',
-        'X-GitHub-Api-Version': '2022-11-28',
       },
       ignoreResponseError: true,
     })
